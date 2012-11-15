@@ -1,3 +1,11 @@
+2012-11-15  Kevin B. Kenny  <kennykb@acm.org>
+
+	* configure.in: Made configurator changes so that tdbc::postgres
+	* Makefile.in:  will `make test` correctly even when running against
+	                an uninstalled TDBC.
+	* configure:    autoconf 2.68
+		*** ADVANCED TO NEW VERSION OF AUTOCONF ***
+
 2012-11-08  Don Porter  <dgp@users.sourceforge.net>
 
 	* configure.in:
@@ -8,7 +16,7 @@
 
 	* generic/pqStubInit.s:  Make some tables "const"
 	* tclconfig/install-sh:  Update to latest TEA
-	* tclconfig/tcl.m4:	
+	* tclconfig/tcl.m4:
 	* configure:		     autoconf-2.59
 
 2012-07-13   Kevin B. Kenny  <kennykb@acm.org>

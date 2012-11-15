@@ -1,4 +1,4 @@
-n#!/bin/bash -norc
+#!/bin/bash -norc
 dnl	This file is an input file used by the GNU "autoconf" program to
 dnl	generate the file "configure", which is run during Tcl installation
 dnl	to configure the system for the local environment.
@@ -64,6 +64,9 @@ if test -f "${tdbc_BIN_DIR}/Makefile" ; then
     tdbc_LIBRARY_PATH=${tdbc_BUILD_LIBRARY_PATH}
 fi
 AC_SUBST(tdbc_LIBRARY_PATH)
+AC_SUBST(TDBC_VERSION)
+AC_SUBST(tdbc_BIN_DIR)
+AC_SUBST(TDBC_LIB_FILE)
 
 #-----------------------------------------------------------------------
 # Handle the --prefix=... option by defaulting to what Tcl gave.
