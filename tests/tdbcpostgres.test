@@ -28,8 +28,9 @@ if {[info exists env(TDBCPOSTGRES_PASSWD)]} {
 }
 if {[info exists env(TDBCPOSTGRES_DB)]} {
     lappend connFlags -db $env(TDBCPOSTGRES_DB)
+    tcltest::testConstraint connect 1
 } else {
-    lappend connFlags -db tdbc_test
+    tcltest::testConstraint connect 0
 }
 if {[info exists env(TDBCPOSTGRES_PORT)]} {
     lappend connFlags -port $env(TDBCPOSTGRES_PORT)
@@ -76,7 +77,8 @@ test tdbc::postgres-1.5 {create a connection, bad port} {*}{
 	tdbc::postgres::connection create db -port 999999999999
     }
     -returnCodes error
-    -result {integer value too large to represent}
+    -match glob
+    -result {integer value too large to represent*}
 }
 
 test tdbc::postgres-1.6 {create a connection, bad port} {*}{
@@ -107,6 +109,7 @@ test tdbc::postgres-1.8 {create a connection, failure} {*}{
 }
 
 test tdbc::postgres-1.9 {create a connection, successful} {*}{
+    -constraints connect
     -body {
 	tdbc::postgres::connection create ::db {*}$connFlags
     }
@@ -120,6 +123,12 @@ test tdbc::postgres-1.9 {create a connection, successful} {*}{
 #------------------------------------------------------------------------------
 #
 # The tests that follow all require a connection to a database.
+
+if {![tcltest::testConstraint connect]} {
+    puts "tests requiring a db connection skipped."
+    cleanupTests
+    return
+}
 
 tdbc::postgres::connection create ::db {*}$connFlags
 catch {::db allrows {DROP TABLE people}}
